@@ -1,0 +1,8 @@
+PyTelegramBotApi
+Python-dotenv
+requests
+instaloader
+BytesIO
+Flask
+gunicorn
+psycopg2-binary
