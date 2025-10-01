@@ -1,8 +1,7 @@
 import instaloader
 import requests
-from telebot import TeleBot, types
+from telebot import TeleBot
 from io import BytesIO
-from flask import Flask, request
 
 TOKEN = "8270329793:AAGY6su9qUwgsMCArCjsap3n5e8YW8LvDaY"
 bot = TeleBot(TOKEN)
@@ -10,10 +9,8 @@ ADMIN_USERNAME = "mahdiraofi"
 
 users_list = []
 
-app = Flask(__name__)
 L = instaloader.Instaloader(download_pictures=False, download_videos=False)
 
-# اضافه کردن User-Agent شبیه مرورگر برای کاهش خطای 403
 L.context._session.headers.update({
     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36'
 })
@@ -189,18 +186,5 @@ def handle_message(message):
             bot.send_message(chat_id,"برای دانلود دوباره پروفایل، یوزرنیم دیگری ارسال کنید یا برای برگشت به خانه روی /start بزنید")
         except Exception as e:
             bot.send_message(chat_id, f"⚠️ خطا: {e}")
-@app.route(f"/{TOKEN}", methods=["POST"])
-def webhook():
-    raw = request.get_data().decode("utf-8")
-    update = types.Update.de_json(raw)
-    bot.process_new_updates([update])
-    return "OK", 200
 
-
-@app.route("/")
-def index():
-    return "Bot is running!", 200
-
-
-if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=8080)
+bot.infinity_polling()
