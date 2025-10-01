@@ -1,7 +1,4 @@
 PyTelegramBotApi
-Python-dotenv
 requests
 instaloader
-Flask
-gunicorn
-psycopg2-binary
+
