@@ -9,8 +9,9 @@ from flask import request, Flask
 TOKEN = "8270329793:AAGY6su9qUwgsMCArCjsap3n5e8YW8LvDaY"
 bot = telebot.TeleBot(TOKEN)
 ADMIN_USERNAME = "mahdiraofi"
+db_url = 'postgresql://akvrkyeejfgajpvlexif:qywzcjlhimhmyxfdgrrjkjwsurlyxo@9qasp5v56q8ckkf5dc.leapcellpool.com:6438/radjfbzwbzolteajzgko?sslmode=require'
 
-conn = psycopg2.connect()
+conn = psycopg2.connect(db_url)
 cursor = conn.cursor()
 
 cursor.execute("""
@@ -221,9 +222,9 @@ def handle_message(message):
 @app.route(f"/{TOKEN}", methods=["POST"])
 def webhook():
     raw = request.get_data().decode("utf-8")
-    print(f"📦 Raw update: {raw}")  # Log the full payload
+    print(f"📦 Raw update: {raw}")  
     update = types.Update.de_json(raw)
-    print(f"✅ Parsed update: {update}")  # Log the parsed object
+    print(f"✅ Parsed update: {update}") 
     bot.process_new_updates([update])
     return "OK", 200
 
