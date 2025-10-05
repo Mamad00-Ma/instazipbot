@@ -172,5 +172,7 @@ def index():
     return "Bot is running!"
 
 
-if __name__ == '__main__':
-    app.run()
+if __name__ == "__main__":
+    import os
+    port = int(os.environ.get("PORT", 8080))  # پورت مورد انتظار هاست
+    app.run(host="0.0.0.0", port=port)
