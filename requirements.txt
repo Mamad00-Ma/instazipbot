@@ -1,4 +1,5 @@
 PyTelegramBotApi
-requests
 instaloader
-
+instagrapi
+requests
+flask
