@@ -2,30 +2,20 @@ import os
 import instaloader
 import requests
 import telebot
-from instagrapi import Client
 from io import BytesIO
 from flask import Flask, request
 
-TOKEN = "7672565477:AAEPJ_cardvE_eZ1d8bz_koY5sx5hAMl8MY"
+TOKEN = "8411510794:AAEgl0RKgsBxb8lvLa1q_fpfTGrDUS--5SY"
 ADMIN_USERNAME = "mahdiraofi"
 bot = telebot.TeleBot(TOKEN)
 
 app = Flask(__name__)
 SESSION_FILE = "settings.json"
-IG_USERNAME = "mahditest55"
-IG_PASSWORD = "MohammadMahdi1389"
 
 L = instaloader.Instaloader(download_pictures=False, download_videos=False)
 L.context._session.headers.update({
     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36'
 })
-cl = Client()
-if os.path.exists(SESSION_FILE):
-    cl.load_settings(SESSION_FILE)
-else:
-    cl.login(IG_USERNAME, IG_PASSWORD)
-    cl.dump_settings(SESSION_FILE)
-
 users_list = []
 user_states = {}
 
@@ -83,8 +73,6 @@ def admin_login(message):
     if os.path.exists(SESSION_FILE):
         os.remove(SESSION_FILE)
     try:
-        cl.login(IG_USERNAME, IG_PASSWORD)
-        cl.dump_settings(SESSION_FILE)
         bot.send_message(message.chat.id, "✅ ورود مجدد موفقیت‌آمیز انجام شد و سشن جدید ساخته شد.")
     except Exception as e:
         bot.send_message(message.chat.id, f"⚠️ خطا در ورود مجدد: {e}")
