@@ -1,5 +1,4 @@
 PyTelegramBotApi
 instaloader
-instagrapi
 requests
 flask
